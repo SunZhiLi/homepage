@@ -1,0 +1,141 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.section{
+    position: relative;
+}
+.section .zi{
+    font-size: 54px;
+    color: #B6BF31;
+    /*z-index: 666;*/
+    text-align: center;
+    position: absolute;
+    left: 40%;
+    top: 34%;
+}
+.section .zi .zi2{
+    font-size: 24px;
+    color: white;
+    margin-top: 10px;
+}
+.active .slide1{
+    position: relative;
+    background: #3bbcff;
+}
+.active .slide1 h2{
+    position: absolute;
+    top: 80px;
+    left: 100px;
+}
+.active .slide1 .p1{
+    position: absolute;
+    top: 100px;
+    left: 130px;
+    margin: 50px 50px;
+}
+.active .slide1 .p2{
+    position: absolute;
+    top: 150px;
+    left: 130px;
+    margin: 50px 50px;
+}
+.active .slide1 .p3{
+    position: absolute;
+    top: 200px;
+    left: 130px;
+    margin: 50px 50px;
+}
+.active .slide1 .p4{
+    width: 600px;
+    position: absolute;
+    top: 250px;
+    left: 130px;
+    margin: 50px 50px;
+}
+.active .slide1 span{
+    font-weight: bold;
+}
+.active .slide2{
+    background: #ffc0d8;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+.active .slide2 p{
+    width: auto;
+    height: auto;
+    font-size: 30px;
+    position: absolute;
+    top: 50px;
+    left: 150px;
+}
+.active .slide2 ul{
+    width: 700px;
+}
+.active .slide2 li{
+    width: 150px;
+    height: 100px;
+    border: 2px solid #3bbcff;
+    text-align: center;
+    line-height: 100px;
+    font-size: 24px;
+    margin: 140px 0 10px 80px;
+    border-radius: 30%;
+    float: left;
+}
+.active .slide3{
+    background: #ffedad;
+    position: relative;
+}
+.active .slide3 p{
+    font-size: 34px;
+    margin: 100px 150px;
+}
+.active .slide3 a{
+    position: absolute;
+    top: 200px;
+    left: 400px;
+}
+.active .slide3 .mz{
+    position: absolute;
+    top: 300px;
+    left: 400px;
+}
+.screen3 .bg{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+}
+.screen3 p{
+    font-size: 36px;
+    color: #eb45ff;
+    position: absolute;
+    left: 260px;
+    top: 100px;
+}
+.screen3 .wx{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 300px;
+    top: 200px;
+}
+.screen3 ul{
+    /*width: 500px;*/
+    /*height: 500px;*/
+    /*background: #3bbcff;*/
+    position: absolute;
+    top: 200px;
+    left: 700px;
+    font-size: 30px;
+    padding: 50px 0;
+}
+.screen3 ul li{
+    color: #535353;
+    margin-top: 20px;
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="jquery.fullPage.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery.fullPage.min.js"></script>
+    <script src="echarts.common.min.js"></script>
+</head>
+<body>
+    <div id="fullpage" style="height: auto">
+        <div class="section">
+            <canvas id="canv" width="1366" height="603"></canvas>
+            <div class="zi">
+                <div class="zi1">前端工程师</div>
+                <div class="zi2">因为热爱，所以专注</div>
+            </div>
+        </div>
+        <div class="section active">
+            <div class="slide slide1">
+                <h2>自我介绍</h2>
+                <p class="p1"> <span>姓名 ：</span>孙志莉</p><br>
+                <p class="p2"> <span>年龄 ：</span>23</p><br>
+                <p class="p3"> <span>职业 ：</span>前端工程师</p><br>
+                <p class="p4"> <span>自我评价 ：</span>我是一个对生活和代码充满无限热情的人，适应力和执行力很强，
+                    对工作一丝不苟，有过两年的工作经验，在团队合作中，能妥善处理好与同事之间的关系。
+                </p>
+            </div>
+            <div class="slide slide2">
+                <p>熟练使用</p>
+                <ul>
+                    <li>vue.js</li>
+                    <li>小程序开发</li>
+                    <li>jQuery</li>
+                    <li>JavaScript</li>
+                    <li>HTML5</li>
+                    <li>css3</li>
+                </ul>
+                <div id="main" style="width: 500px;height:400px;float: right;margin-top: -80px;margin-right: 30px"></div>
+            </div>
+            <div class="slide slide3">
+                <p>个人作品</p>
+                <a href="https://sunzhili.github.io/weather-/index.html">https://sunzhili.github.io/weather-/index.html</a>
+                <a class="mz" href="https://sunzhili.github.io/beauty/meizhuang.html">https://sunzhili.github.io/beauty/meizhuang.html</a>
+            </div>
+        </div>
+        <div class="section screen3">
+            <img class="bg" src="img/bg.jpg" alt="" >
+            <p>联系我 :</p>
+            <img class="wx" src="img/erweima.jpg" alt="">
+            <ul>
+                <li>电话：17696044287</li>
+                <li>邮箱：m17696044287@163.com</li>
+                <li>QQ：1710791488</li>
+            </ul>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $('#fullpage').fullpage({
+                    menu: false,//绑定菜单，设定的相关属性与anchors的值对应后，菜单可以控制滚动，默认为false。
+                    // anchors:['firstPage', 'secondPage'],//anchors定义锚链接，默认为[]
+                    lockAnchors: false,//是否锁定锚链接，默认为false,设为true后链接地址不会改变
+                    navigation: false,//是否显示导航，默认为false
+                    navigationPosition: 'right',//导航小圆点的位置
+                    navigationTooltips: ['firstSlide', 'secondSlide',],//导航小圆点的提示
+
+                    css3: true,//是否使用CSS3 transforms来实现滚动效果，默认为true
+                    scrollingSpeed: 300,//设置滚动速度，单位毫秒，默认700
+                    loopBottom: true,//滚动到最低部后是否连续滚动到顶部，默认为false
+                });
+            });
+            // 绘制图表。
+            echarts.init(document.getElementById('main')).setOption({
+                series: {
+                    type: 'pie',
+                    data: [
+                        {name: 'HTML5', value: 90},
+                        {name: 'CSS3', value: 90},
+                        {name: 'JavaScript', value: 90},
+                        {name: 'jQuery', value: 85},
+                        {name: 'vue.js', value: 70},
+                        {name: '微信小程序', value: 60}
+                    ]
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
+<script>
+
+
+    window.requestAnimFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+    window.addEventListener('load', start, false);
+
+    var c, $, w, h, msX, msY, midX, midY, num = 650, parts = [],
+        begin = 50, repeat = 20, end = Math.PI * 2, force = null, msdn = false;
+
+    function start() {
+        c = document.getElementById('canv');
+        $ = c.getContext('2d');
+        w = c.width = window.innerWidth;
+        h = c.height = window.innerHeight;
+        midX = w / 2;
+        midY = h / 2;
+        force = Math.max(w, h) * 0.09;
+        flow = begin;
+
+        window.requestAnimFrame(create);
+        run();
+    }
+
+    function run() {
+        window.requestAnimFrame(run);
+        go();
+    }
+
+    function Part() {
+        this.deg = 0;
+        this.rad = 0;
+        this.x = 0;
+        this.y = 0;
+        this.distX = 0;
+        this.distY = 0;
+        this.color = 'rgb(' + Math.floor(Math.random() * 130) + ',' + Math.floor(Math.random() * 50) + ',' + Math.floor(Math.random() * 100) + ')';
+        this.size;
+    }
+
+    function create() {
+        var n = num;
+        while (n--) {
+            var p = new Part();
+            p.deg = Math.floor(Math.random() * 360);
+            p.rad = Math.floor(Math.random() * w * 0.5);
+            p.x = p.distX = Math.floor(Math.random() * w);
+            p.y = p.distY = Math.floor(Math.random() * h);
+            p.size = 1 + Math.floor(Math.random() * (p.rad * 0.055));
+            parts[n] = p;
+        }
+        c.onmousemove = msmv;
+        c.onmousedown = msdn;
+        c.onmouseup = msup;
+
+        var int = setInterval(function() {
+            flow--;
+            if (flow === repeat) clearInterval(int);
+        }, 20);
+    }
+
+    function go() {
+        $.globalCompositeOperation = 'source-over';
+        $.fillStyle = 'hsla(242, 30%, 5%, .55)';
+        $.fillRect(0, 0, w, h);
+        $.globalCompositeOperation = 'lighter';
+        var mx = msX;
+        var my = msY;
+        var bounds = force;
+        if (msdn) {
+            bounds = force * 2;
+        }
+        var n = num;
+        while (n--) {
+            var p = parts[n];
+            var radi = Math.PI / 180 * p.deg;
+            p.distX = midX + p.rad * Math.cos(radi);
+            p.distY = midY + p.rad * Math.sin(radi) * 0.4;
+            if (mx && my) {
+                var react = Math.floor((bounds * 0.5) + Math.random() * (bounds * 0.9));
+                if (p.distX - mx > 0 &&
+                    p.distX - mx < bounds &&
+                    p.distY - my > 0 &&
+                    p.distY - my < bounds) {
+                    p.distX += react;
+                    p.distY += react;
+                } else if (p.distX - mx > 0 &&
+                    p.distX - mx < bounds &&
+                    p.distY - my < 0 &&
+                    p.distY - my > -bounds) {
+                    p.distX += react;
+                    p.distY -= react;
+                } else if (p.distX - mx < 0 &&
+                    p.distX - mx > -bounds &&
+                    p.distY - my > 0 &&
+                    p.distY - my < bounds) {
+                    p.distX -= react;
+                    p.distY += react;
+                } else if (p.distX - mx < 0 &&
+                    p.distX - mx > -bounds &&
+                    p.distY - my < 0 &&
+                    p.distY - my > -bounds) {
+                    p.distY -= react;
+                    p.distY -= react;
+                }
+            }
+            p.x += ((p.distX - p.x) / flow);
+            p.y += ((p.distY - p.y) / flow);
+            var x = p.x;
+            var y = p.y;
+            var s = p.size * (p.y * 1.5 / h);
+            if (s < 0.1) {
+                s = 0;
+            }
+            $.beginPath();
+            $.fillStyle = p.color;
+            $.arc(x, y, s, 0, end, true);
+            $.fill();
+            $.closePath();
+            var vary;
+            if (p.size < 2) {
+                vary = 4;
+            } else if (p.size < 3) {
+                vary = 3;
+            } else if (p.size < 4) {
+                vary = 2;
+            } else {
+                vary = 1;
+            }
+            vary *= (p.y / (h * 0.9));
+            p.deg += vary;
+            p.deg = p.deg % 360;
+        }
+    }
+
+    function msmv(e) {
+        var p = getPos(e.target);
+        var sX = window.pageXOffset;
+        var sY = window.pageYOffset;
+        msX = e.clientX - p.x + sX;
+        msY = e.clientY - p.y + sY;
+    }
+
+    function msdn(e) {
+        msdn = true;
+    }
+
+    function msup(e) {
+        msdn = false;
+    }
+
+    function getPos(el) {
+        var cosmo = {};
+        cosmo.x = el.offsetLeft;
+        cosmo.y = el.offsetTop;
+        while (el.offsetParent) {
+            el = el.offsetParent;
+            cosmo.x += el.offsetLeft;
+            cosmo.y += el.offsetTop;
+        }
+        return cosmo;
+    }
+</script>
+
+
